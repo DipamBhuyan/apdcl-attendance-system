@@ -62,7 +62,7 @@ The **APDCL Attendance Registration System** is a web-based **Attendance Managem
 
 ## Contributors  
 - [**Dipam Bhuyan**](https://github.com/DipamBhuyan)  
-- [**Dipjyoti Saikia**](https://github.com/DipjyotiSaikia)  
+- [**Dipjyoti Saikia**](https://github.com/Dipjyoti46)  
 
 ## License  
 This project is for APDCL’s internal use and is not open-source.  
