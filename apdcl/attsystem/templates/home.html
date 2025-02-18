@@ -1,0 +1,159 @@
+{% include "nav.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- load static files -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css'  , {{present_percentage}} %}">
+</head>
+<body>
+    <div class="main">
+        <div class="container stat">
+           <div class="stat-table">
+                <table>
+                    <tr>
+                        <td colspan="3" rowspan="1">
+                            <div class="table-data">
+                            <div class="pro-circle">
+                                <div class="progress"  style="height: 0;">
+                                    <span class="percent">{{present_percentage|floatformat:2 }}</span>
+                                    {% comment %} <span class="percent">{{total_present}}</span> {% endcomment %}
+                                </div>
+                            </div>
+                            <h2>Attendance Percentage</h2>
+                        </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" rowspan="1">
+                            <div class="perfrom">                                
+                                <h2  id="text-big">PERFORMANCE</h2>
+                                <span id="text-small">
+                                    {% if present_percentage == 100 %}
+                                        Excellent
+                                    {% elif present_percentage >= 80 %}
+                                        Good
+                                    {% elif present_percentage >= 60 %}
+                                        Poor
+                                    {% else %}
+                                        Bad
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+           </div>
+        </div>
+         <div class="container attend">
+            <div class="request">
+                <div class="attendance">
+                    <div class="atted-head">
+                        <span id="attend-text">Attendance Request</span>
+                    </div>
+                    <div class="attend-count">
+                        <span>{{ attendance_request_count.count }}</span>
+                    </div>
+                </div>
+                <div class="account">
+                    <div class="account-head">
+                        <span id="account-text">New Account Request</span>
+                    </div>
+                    <div class="account-count">
+                        <span >{{accounts_count.count}}</span>
+                    </div>
+                </div>  
+            </div>
+            <div class="datetime">
+                <div class="date-time">
+                    <div class="date">
+                        <span class="la-text">Date :</span>
+                        <span class="sm-text" id="date"></span>
+                    </div>
+                    <div class="time">
+                        <span class="la-text">Time :</span>
+                    {% if attendance_exist %}
+                        {% for record in attendance_record %}
+                            <span class="sm-text" >{{ record.time_in }}</span>
+                        {% endfor %}
+                    {% else %}
+                        <span class="sm-text" id="time"></span>
+                    {% endif %}
+                    </div>
+                    <div class="status">
+                        <span class="la-text">Status :</span>
+                    {% if attendance_exist %}
+                        {% for record in attendance_record %}
+                            <span class="sm-text" id="status">{{ record.status }}</span>
+                        {% endfor %}
+                    {% else %}
+                        <span class="sm-text" id="status">Pending</span>
+                    {% endif %}
+                    </div>
+                {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                            <div class="message {{ message.tags }}" style='color:red'>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                </div>
+                <div class="action">
+                    <div class="btn p">
+                        <a href="{% url 'attendance_submit' logged_in_user.username 'present' %}">PRESENT</a>
+                    </div>
+                    <div class="btn a">
+                        <a  href="{% url 'attendance_submit' logged_in_user.username 'absent' %}">ABSENT</a>
+                        {% comment %} <a  href="{% url 'attendance_submit' logged_in_user.username 'Absent' %}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#attendanceReason">ABSENT</a>  {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    const buttons = document.querySelectorAll('.button');
+  
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        buttons.forEach(btn => {
+          btn.classList.remove('present');
+          btn.classList.remove('absent');
+        });
+  
+        button.classList.add('present');
+      });
+    });
+    function updateDateTime() {
+      const dateElement = document.getElementById('date');
+      const timeElement = document.getElementById('time');
+  
+      const currentDate = new Date();
+      const date = currentDate.toLocaleDateString();
+      const time = currentDate.toLocaleTimeString();
+  
+      dateElement.textContent = date;
+      timeElement.textContent = time;
+    }
+  
+    setInterval(updateDateTime, 1000);
+
+    {% comment %} the progress bar script {% endcomment %}
+    $(document).ready(function() {
+        var presentPercentage = parseFloat("{{ present_percentage }}");
+        var progressBar = $(".progress");
+        var progressBarHeight = presentPercentage + "%";
+
+        progressBar.animate({ height: progressBarHeight }, 1000); // Adjust animation duration as needed
+    });
+
+
+  </script>
+
+</html>

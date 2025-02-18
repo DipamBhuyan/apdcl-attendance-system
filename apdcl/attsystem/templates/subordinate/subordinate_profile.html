@@ -1,0 +1,134 @@
+{% include 'subordinate/subordinate_nav.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APDCL - Atendance System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% load static %}    
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="container mt-4">
+        {% if messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {% for message in messages %}
+                    <strong>{{ message }}</strong>
+                {% endfor %}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+    </div>
+
+    <main class="container mt-4">
+        <div class="card card-profile" style="font-size: 16px; margin-top: 5%; margin-bottom: 5%;">
+            <div class="py-3 text-center border-bottom">
+                <div class="profile-picture" style="border: 2px solid #007bff;">
+                    {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="img-fluid" style="width: 147px; height: 146px; border-radius: 50%;">
+                    {% else %}
+                        <img src="{% static 'default_profile_picture.png' %}" alt="Default Profile Picture" class="img-fluid" style="width: 147px; height: 146px; border-radius: 50%;">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="py-3 px-4 border-bottom" style="font-size: 16px;">
+                <div class="row gy-6 align-items-center" style="font-size: 16px;">
+                    <div class="col-md-1 text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56">
+                            <g id="icon-user" transform="translate(-4333 -5914)">
+                                <g id="Container" transform="translate(4333 5914)" fill="rgba(231,234,239,0.5)" stroke="rgba(76,80,115,0.16)" stroke-width="1.5">
+                                    <rect width="56" height="56" rx="28" stroke="none"></rect>
+                                    <rect x="0.75" y="0.75" width="54.5" height="54.5" rx="27.25" fill="none"></rect>
+                                </g>
+                                <g id="Icon_feather-user" data-name="Icon feather-user" transform="translate(4351.717 5931.547)">
+                                    <path id="Path_73" data-name="Path 73" d="M24.717,29.519v-2.34A4.679,4.679,0,0,0,20.038,22.5H10.679A4.679,4.679,0,0,0,6,27.179v2.34" transform="translate(-6 -8.462)" fill="none" stroke="#4b5076" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+                                    <path id="Path_74" data-name="Path 74" d="M21.359,9.179A4.679,4.679,0,1,1,16.679,4.5a4.679,4.679,0,0,1,4.679,4.679Z" transform="translate(-7.321 -4.5)" fill="none" stroke="#4b5076" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="col-md-5" style="font-size: 16px;">
+                        <h5>
+                            Welcome, {{ user.firstname }} {{ user.lastname }}!
+                        </h5>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4 text-center" style="font-size: 14px;">
+                        Your <span class="" style="font-size: 14px; text-decoration: underline;"><b>Username</b></span> is : <span class="badge text-success ms-md-2 px-4 py-3" style="font-size: 15px; background-color: #ccf5e7 !important; border-radius: 10px;">{{ user.username }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body pt-8 pb-10" style="font-size: 16px;">
+                <div class="mt-4 table-responsive">
+                    <table class="table table-bordered text-left">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Full Name</th>
+                                <td>{{ user.firstname }} {{ user.lastname }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Designation</th>
+                                <td>{{ user.designation}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Joining Date</th>
+                                <td>{{ user.joining_date }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Office</th>
+                                <td>{{ user.office }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Registered Contact Number</th>
+                                <td>{{ user.phone }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Registered E-mail Address</th>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="collapse" id="collapseDetails">
+                    <div class="mt-4 table-responsive">
+                        <table class="table table-bordered text-left">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Department</th>
+                                    <td>{{ user.department }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Date of Birth</th>
+                                    <td>{{ user.date_of_birth }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Gender</th>
+                                    <td>{{ user.gender }}</td>
+                                </tr>                           
+                                <tr>
+                                    <th scope="row">Address</th>
+                                    <td>{{ user.address }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Boss Name</th>
+                                    <td>{{ user.boss_name }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <a class="btn btn-secondary btn-block" data-toggle="collapse" href="#collapseDetails" role="button" aria-expanded="false" aria-controls="collapseDetails">View More Details</a>
+                <a class="btn btn-primary btn-block" href="{% url 'subordinate_profile_edit' %}">Edit Details</a>
+                <a class="btn btn-primary btn-block" href="/log_out">Log Out</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

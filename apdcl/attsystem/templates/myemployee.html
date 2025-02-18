@@ -1,0 +1,70 @@
+{% include "nav.html" %} 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/myemployee.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <div class="table-title">
+        <h1>Your Employees</h1>
+      </div>
+      <div class="search-employee">
+        <div class="search">
+          <form method="GET">
+            <input type="search" name="search" placeholder="Search Employee" value="{{ request.GET.search }}">
+            <button type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+      <div class="attend-table">
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Designation</th>
+            <th>Department</th>
+            <th>Date of Joining</th>
+            <th>More</th>
+            <th>Status</th>
+            <th>Action</th>
+            <th>Edit</th>
+          </tr>
+          {% for account in accounts %}
+          {% if account.user_status != 'Request Pending' and account.user_status != 'Reject' %}
+            <tr>
+              <td><span id="name">{{ account.firstname }} {{ account.lastname }}</span></td>
+              <td><span id="designation">{{ account.designation }}</span></td>
+              <td><span id="address">{{ account.department }}</span></td>
+              <td><span id="date">{{ account.joining_date|date:"d-m-Y" }}</span></td>
+              <td><a class="btn v" href="{% url 'view_details' account.id 1%}">View</a></td>
+              {% if account.is_active %}
+              <td><span id="status">Active</span></td>
+              {% else %}
+              <td><span id="status">Blocked</span></td>
+              {% endif %}
+              <td>
+                <div class="action">
+                {% if account.is_active %}
+                  <a class="btn a" href="{% url 'edit_active_status' account.username %}">Block</a>
+                {% else %}
+                  <a class="btn r" href="{% url 'edit_active_status' account.username %}">Unblock</a>
+                {% endif %}
+                </div>
+              </td>
+              <td>
+                <div class="action">
+                  <a class="btn a" href="{% url 'boss_edit_page' account.id %}">Edit</a>
+                </div>
+              </td>
+            </tr>
+          {% endif %}
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

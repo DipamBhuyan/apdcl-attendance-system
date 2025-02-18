@@ -1,0 +1,128 @@
+{% include 'nav.html' %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>APDCL - Attendance System Registration</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+        <style>
+            .error {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="container" style="margin-top:500px">
+        <form class="registration-form" method="post"  action= "{% url "registration" %}">
+            {% csrf_token %}
+            <h2>APDCL Attendance Registration</h2>
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %} 
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" value="admin" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+
+            </div>
+            <div class="form-group">
+                <label for="password">Confirm Password</label>
+                <input type="password" id="password" name="password2" required>
+
+            </div>
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail ID</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="contactNumber">Contact Number</label>
+                <input type="tel" id="contactNumber" name="phone" required>
+            </div>
+            {% comment %} <div class="form-group">
+                <label for="office">Office</label>
+                <select class="form-control" id="office" name="office" required>
+                    <option value="default" selected disabled hidden>Choose your Office</option>
+                    <option value="kamrup">Kamrup</option>
+                    <option value="kokrajhar">Kokrajhar</option>
+                    <option value="hojai">Hojai</option>
+                </select>
+            </div> {% endcomment %}
+            <div class="form-group">
+                <label for="joining_date">Joining Date</label>
+                <input type="date" id="joining_date" name="joining_date" required>
+            </div>
+            {% comment %} <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" id="department" name="department" required>
+            </div> {% endcomment %}
+            {% comment %} <div class="form-group">
+                <label for="designation">Designation</label>
+                <select class="form-control" id="designation" name="designation" required>
+                    <option value="default" selected disabled hidden>Choose your user type</option>
+                    {% comment %} <option value="managing director">Managing Director</option> {% endcomment %}
+                    {% comment %}<option value="director">Director</option>
+                    <option value="chief engineer">Chief Engineer</option>
+                    <option value="superintending engineer">Superintending Engineer</option>
+                    <option value="executive engineer">Executive Engineer</option>
+                    <option value="assistant executive engineer">Assistant Executive Engineer</option>
+                    <option value="junior engineer">Junior Engineer</option>
+                    <option value="technical supervisor">Technical Supervisor</option>
+                    <option value="lineman & technician">Lineman & Technician</option>
+                    <option value="administrative staff">Administrative Staff</option>
+                    <option value="meter reader & customer service representative">Meter Reader & Customer Service Representative</option>
+                </select>
+            </div> {% endcomment %}
+            <div class="form-group">
+                <label for="bossName">Boss Name</label>
+                <select class="form-control" id="bossName" name="bossName" required>
+                    <option value="default" selected disabled hidden>Choose your Boss</option>
+                    {% for bosses in boss %}
+                    <option value="{{bosses.username}}">{{ bosses.firstname }} {{ bosses.lastname }}( {{bosses.designation}} )({{bosses.office}})</option>
+                    {% endfor %}
+                </select>
+            </div>            
+            {% comment %} <div class="form-group">
+                <label for="is_boss">Are you boss? </label>
+                <select name="is_boss" required>
+                    <option value="default" selected disabled hidden>Choose your user type</option>
+                    <option value="True">Yes</option>
+                    <option value="False">No</option>
+            </div> {% endcomment %}
+            <div class="form-group ">
+                <label for="profile_pic">Your Image</label>
+                <input type="file" id="profile_pic" name="profile_pic" >
+            <button type="submit">Register</button>
+            <p>Already have an account? <a href="/log_in">Login now</a></p>
+
+        </form>
+    </div>
+</body>
+<script>
+    function togglePassword() {
+        var passwordField = document.getElementById("password");
+        var passwordType = passwordField.getAttribute("type");
+        if (passwordType === "password") {
+            passwordField.setAttribute("type", "text");
+        } else {
+            passwordField.setAttribute("type", "password");
+        }
+    }
+    
+</script>
+</html>

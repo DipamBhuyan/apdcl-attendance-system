@@ -1,0 +1,74 @@
+
+{% include 'nav.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Subordinate Details</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/view.css' %}">
+</head>
+<body>
+    <h1>Subordinate Details</h1>
+    <table>
+        <tr>
+            <th>Username</th>
+            <td>{{ employee.username }}</td>
+        </tr>
+        <tr>
+            <th>First Name</th>
+            <td>{{ employee.firstname }}</td>
+        </tr>
+        <tr>
+            <th>Last Name</th>
+            <td>{{ employee.lastname }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ employee.email }}</td>
+        </tr>
+        <tr>
+            <th>Phone</th>
+            <td>{{ employee.phone }}</td>
+        </tr>
+        <tr>
+            <th>Office</th>
+            <td>{{ employee.office }}</td>
+        </tr>
+        <tr>
+            <th>Designation</th>
+            <td>{{ employee.designation }}</td>
+        </tr>
+        <tr>
+            <th>Department</th>
+            <td>{{ employee.department }}</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>{{ employee.address }}</td>
+        </tr>
+        <tr>
+            <th>Joining Date</th>
+            <td>{{ employee.joining_date }}</td>
+        </tr>
+        <tr>
+            <th>Boss</th>
+            <td>{{ employee.boss_name }}</td>
+        </tr>
+        <tr>
+            <th>Is Boss</th>
+            <td>{{ employee.is_boss }}</td>
+        </tr>
+    </table>
+
+    <div class="actions">
+    {% if from_page == 2 %}
+        <a class="btn accept" href="{% url 'request_response' employee.username 'accept' %}">Accept</a>
+        <a class="btn reject" href="{% url 'request_response' employee.username 'reject' %}">Reject</a>
+    {% endif %}
+        <a class="btn reject" href="{% url 'boss_edit_page' employee.id %}">Edit</a>
+        <a class="btn back" href="javascript:history.back()">Back</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+{% include 'nav.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}?v={{ STATIC_VERSION }}">
+</head>
+<body>
+    <div class="container">
+        <div class="content info">
+            <div class="content-item stat">
+                <div class="employee-count">
+                    <span class="lr-text head">Total Employee Working Under You :</span>
+                    <span class="lr-text count">{{ accounts_count.count }}</span>
+                </div>
+                <div class="employee-count">
+                    <span class="lr-text head">Total Response :</span>
+                    <span class="lr-text count">{{ attendance_record.count }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content-item filter">
+                    <span id="filt">
+                        <a class="btn btn-secondary btn-block" data-toggle="collapse" href="#collapseDetails" role="button" aria-expanded="false" aria-controls="collapseDetails">Add Holiday</a>
+                    </span>
+            </div>
+            <div class="content-item filter-2">
+                <div class="filter-table">
+                    <table>
+                        <tr>
+                            <th><a href="?filter=today" class="time-filter {% if filter_type == 'today' %}active{% endif %}">Today</a></th>
+                            <th><a href="?filter=7d" class="time-filter {% if filter_type == '7d' %}active{% endif %}">7D</a></th>
+                            <th><a href="?filter=30d" class="time-filter {% if filter_type == '30d' %}active{% endif %}">30D</a></th>
+                            <th><a href="?filter=6m" class="time-filter {% if filter_type == '6m' %}active{% endif %}">6M</a></th>
+                            <th><a href="?filter=1y" class="time-filter {% if filter_type == '1y' %}active{% endif %}">1Y</a></th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="collapse" id="collapseDetails">
+            <form method="post" action="{% url 'add_holiday' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="occassion">Occassion</label>
+                    <input type="text" id="occassion" name="occassion" required>
+                </div>
+                <button class="add" type="submit">Add</button>
+            </form>
+        </div>
+        <div class="content-table">
+            <div class="search-employee">
+                <div class="search">
+                    <form method="GET">
+                        <input type="search" name="search" placeholder="Search Employee" value="{{ request.GET.search }}">
+                        <button type="submit">Search</button>
+                    </form>
+                    {% comment %} <div>
+                        <a href="{% url 'export_attendance_to_excel' %}" class="btn btn-success">Export to Excel</a>
+                    </div> {% endcomment %}
+                </div>
+            </div>
+            <div class="content-item-table">
+                <table>
+                    <tr>
+                        <th>Employee Name</th>
+                        <th>Username</th>
+                        <th>Office</th>
+                        <th>Designation</th>
+                        <th>Date and Time</th>
+                        <th>Attendance</th>
+                        <th>Remarks</th>
+                        <th>Edit</th>
+                    </tr>
+                    {% for attendance in attendance_record %}
+                    <tr>
+                        <td>{{ attendance.username.firstname }} {{ attendance.username.lastname }}</td>
+                        <td>{{ attendance.username.username }}</td>
+                        <td>{{ attendance.username.office }}</td>
+                        <td>{{ attendance.username.designation }}</td>
+                        <td>{{ attendance.date }}<br>{{ attendance.time_in }}</td>
+                        <td>{{ attendance.status }}</td>
+                        <td>
+                            {% if attendance.archive_status is not None and attendance.updated_at is not None %}
+                            Original: {{ attendance.archive_status }}<br>
+                            Edit date and time: <br>
+                            {{ attendance.updated_at }}<br>
+                            {% else %}
+                            No Remarks
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% comment %} <a href="#" class="btn edit-btn">Leave</a> {% endcomment %}
+                            <a href="#" class="btn edit-btn">Edit</a>
+                            <div class="action-buttons" style="display: none;">
+                                <a class="btn present-btn" href="{% url 'edit_attendance' attendance.id 'Present' %}">Present</a>
+                                <a class="btn absent-btn" href="{% url 'edit_attendance' attendance.id 'Absent' %}">Absent</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Add click event listeners for edit buttons
+        document.querySelectorAll('.edit-btn').forEach(function(editBtn) {
+            editBtn.addEventListener('click', function(event) {
+                event.preventDefault();
+                const actionButtons = this.nextElementSibling;
+                actionButtons.style.display = 'block';
+                this.style.display = 'none';
+            });
+        });
+
+        // Add event listeners for present and absent buttons
+        document.querySelectorAll('.present-btn').forEach(function(presentBtn) {
+            presentBtn.addEventListener('click', function() {
+                alert('Present button clicked!');
+               
+            });
+        });
+
+        document.querySelectorAll('.absent-btn').forEach(function(absentBtn) {
+            absentBtn.addEventListener('click', function() {
+                alert('Absent button clicked!');
+               
+            });
+        });
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>

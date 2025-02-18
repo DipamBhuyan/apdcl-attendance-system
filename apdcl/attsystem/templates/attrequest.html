@@ -1,0 +1,61 @@
+{% include "nav.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/attrequest.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="table-title">
+        <h1>Attendance Request</h1>
+    </div>
+    <div class="search-employee">
+        <div class="search">
+            <form method="GET">
+                <input type="search" name="search" placeholder="Search Employee" value="{{ request.GET.search }}">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    <div class="attend-table">
+        <table>
+            <thead>
+            <tr>
+                <th>Employee Username</th>
+                <th>Date</th>
+                <th>Time In</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for record in attendance_record %}
+            <tr>
+                <td>{{ record.username.username }}</td>  <!-- Assuming username is a CustomUser object -->
+                <td>{{ record.date }}</td>
+                <td>{{ record.time_in }}</td>
+                <td>{{ record.status }}</td>
+                <td>
+                    {% if record.is_respond == False %}
+                    <div class="action">
+                        <a class="btn a" href="{% url 'update_attendance' record.id 'approved' %}">Accept</a>
+                        <a class="btn r" href="{% url 'update_attendance' record.id 'reject' %}">Reject</a>
+                    </div>
+                    {% elif record.is_respond == True and record.is_approved == True %}
+                    <p>Approved</p>
+                    {% elif record.is_respond == True and record.is_approved == False %}
+                    <p>Rejected</p>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

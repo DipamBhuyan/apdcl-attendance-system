@@ -1,0 +1,94 @@
+{% include 'subordinate/subordinate_nav.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}?v={{ STATIC_VERSION }}">
+   
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="content-item filter-2">
+                <div class="filter-table">
+                    <table>
+                        <tr>
+                            <th><a href="?filter=today" class="time-filter {% if filter_type == 'today' %}active{% endif %}">Today</a></th>
+                            <th><a href="?filter=7d" class="time-filter {% if filter_type == '7d' %}active{% endif %}">7D</a></th>
+                            <th><a href="?filter=30d" class="time-filter {% if filter_type == '30d' %}active{% endif %}">30D</a></th>
+                            <th><a href="?filter=6m" class="time-filter {% if filter_type == '6m' %}active{% endif %}">6M</a></th>
+                            <th><a href="?filter=1y" class="time-filter {% if filter_type == '1y' %}active{% endif %}">1Y</a></th>
+                        </tr>
+                    </table>
+                </div> 
+            </div>
+        </div>
+        <div class="content-table">
+            <div class="content-item-table">
+                
+                <table>
+                    <tr>
+                        <th>Employee Name</th>
+                        <th>Username</th>
+                        <th>Date and Time</th>
+                        <th>Attendance</th>
+                        <th>Actions</th>
+                        <th>Remarks</th>
+                    </tr>
+                    {% for attendance in attendance_record %}
+                    <tr>
+                        <td>{{ attendance.username.firstname }} {{attendance.username.lastname}}</td>
+                        <td>{{ attendance.username }}</td>
+                        <td>{{ attendance.date }}<br>{{ attendance.time_in }}</td>
+                        <td>{{ attendance.status }}</td>
+                        {% if attendance.is_respond == True and attendance.is_approved == True %}
+                        <td>Approved</td>
+                        {% elif attendance.is_respond == True and attendance.is_approved == False %}
+                        <td>Rejected</td>
+                        {% elif  attendance.is_respond == False and attendance.is_approved == False %}
+                        <td> Pending</td>
+                        {% endif %}
+                        <td>
+                            {% if attendance.archive_status is not None and attendance.updated_at is not None %}
+                            Original :{{ attendance.archive_status }}<br>
+                            Edit date and time :<br>
+                            {{ attendance.updated_at }}<br>
+                            {% else %}
+                            No Remarks
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const percentSpan = document.querySelector('.percent');
+        const targetPercent = parseFloat(percentSpan.textContent);
+        let currentPercent = 0;
+        const duration = 5000; // 5 seconds
+        const frameRate = 1000 / 60; // 60 frames per second
+        const totalFrames = duration / frameRate;
+        const increment = targetPercent / totalFrames;
+
+        function updatePercent() {
+            currentPercent += increment;
+            if (currentPercent > targetPercent) {
+                currentPercent = targetPercent;
+            }
+            percentSpan.textContent = Math.round(currentPercent) + '%';
+            if (currentPercent < targetPercent) {
+                requestAnimationFrame(updatePercent);
+            }
+        }
+
+        requestAnimationFrame(updatePercent);
+    });
+</script>
+</html>

@@ -1,0 +1,91 @@
+{% include "nav.html" %} 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/accrequest.css' %}?">
+  </head>
+  <body>
+    <div class="container">
+      <div class="table-title">
+          <h1>New Account Request</h1>
+      </div>
+      <div class="attend-table">
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Designation</th>
+            <th>Department</th>
+            <th>Date of Request</th>
+            <th>View</th>
+            <th>Action</th>
+          </tr>
+          {% for account in accounts %}
+            {% if account.is_active == False and account.is_response == False %}
+              <tr>
+                <td><span id="name">{{ account.firstname }} {{ account.lastname }}</span></td>
+                <td><span id="designation">{{ account.designation }}</span></td>
+                <td><span id="address">{{ account.department }}</span></td>
+                <td><span id="date">{{ account.request_date|date:"d-m-Y" }}</span></td>
+                <td><a class="btn v" href="{% url 'view_details' account.id 2%}">View</a></td>
+                <td>
+                  <div class="action">
+                    <a class="btn accept" href="{% url 'request_response' account.username 'accept' %}">Accept</a>
+                    <a class="btn reject" href="{% url 'request_response' account.username 'reject' %}">Reject</a>
+                  </div>
+                </td>
+              </tr>
+            {% endif %}
+        {% endfor %}
+        </table>
+      </div>
+    </div>
+    <div class="text-center">
+      <a class="btn btn-secondary" data-toggle="collapse" href="#collapseDetails" role="button" aria-expanded="false" aria-controls="collapseDetails">View Rejected Account</a>
+    </div>
+    <div class="collapse" id="collapseDetails">
+      <div class="container">
+        <div class="table-title">
+            <h1>Rejected Account</h1>
+        </div>
+          <div class="attend-table">
+            <table>
+              <tr>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Department</th>
+                <th>Date of Request</th>
+                <th>Date of Respond</th>
+                <th>View</th>
+                <th>Action</th>
+              </tr>
+              {% for account in accounts %}
+                {% if account.is_active == False and account.is_response == True and account.is_staff == False %}
+                  <tr>
+                    <td><span id="name">{{ account.firstname }} {{ account.lastname }}</span></td>
+                    <td><span id="designation">{{ account.designation }}</span></td>
+                    <td><span id="address">{{ account.department }}</span></td>
+                    <td><span id="date">{{ account.request_date|date:"d-m-Y" }}</span></td>
+                    <td><span id="date">{{ account.request_response_date|date:"d-m-Y" }}</span></td>
+                    <td><a class="btn v" href="{% url 'view_details' account.username%}">View</a></td>
+                    <td>
+                      <div class="action">
+                        <a class="btn accept" href="{% url 'request_response' account.username 'accept' %}">Accept</a>
+                      </div>
+                    </td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+            </table>
+          </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

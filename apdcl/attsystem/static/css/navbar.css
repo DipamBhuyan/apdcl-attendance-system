@@ -1,0 +1,61 @@
+/* navbar.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    background-color: rgb(3, 34, 77);
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Ensure it stays on top of other content */
+    width: 100%; /* Ensure it spans the full width */
+    padding: 10px 0;
+}
+
+.navbar li a {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    margin-left: auto; /* Push the nav list to the right */
+}
+
+.nav-list li a {
+    padding: 10px;
+}
+
+.nav-list li:hover {
+    background-color: white;
+}
+
+.nav-list li a:hover {
+    background-color: white;
+    color: black;
+}
+
+.navbar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 16px;
+}
+
+#cname {
+    color: white;
+    font-size: 25px;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+}

@@ -1,0 +1,179 @@
+{% comment %} {% include 'nav.html' %}
+{% load static %}    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APDCL - Attendance System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <main class="container mt-4">
+        <div class="card card-profile" style="font-size: 16px;">
+            <div class="py-3 text-center border-bottom">
+                <h4>Update Employee Profile Details</h4>
+            </div>
+            <div class="card-body row text-left py-3">
+                <div class="col-md-12">
+                    <div class="py-3">
+                        <form method="post" enctype="multipart/form-data" action="{% url 'boss_edit', boss_edit.id %}">
+                            {% csrf_token %}
+                            <div class="mt-4">
+                                <div class="form-group row">
+                                    <div class="col-md-6 col-12">
+                                        <label for="is_boss">Are you boss? </label>
+                                        <select class="form-control" name="is_boss" required>
+                                            <option value="default" selected disabled hidden>Choose your user type</option>
+                                            <option value="True">Yes</option>
+                                            <option value="False">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row text-left">
+                                    <div class="col-md-6 col-12">
+                                        <label for="designation">Designation</label>
+                                        <select class="form-control" id="designation" name="designation" required>
+                                            <option value="{{ user.designation }}" selected disabled hidden>{{ user.designation }}</option>
+                                            {% comment %} <option value="managing director">Managing Director</option> {% endcomment %}
+                                            {% comment %}<option value="director">Director</option>
+                                            <option value="chief engineer">Chief Engineer</option>
+                                            <option value="superintending engineer">Superintending Engineer</option>
+                                            <option value="executive engineer">Executive Engineer</option>
+                                            <option value="assistant executive engineer">Assistant Executive Engineer</option>
+                                            <option value="junior engineer">Junior Engineer</option>
+                                            <option value="technical supervisor">Technical Supervisor</option>
+                                            <option value="lineman & technician">Lineman & Technician</option>
+                                            <option value="administrative staff">Administrative Staff</option>
+                                            <option value="meter reader & customer service representative">Meter Reader & Customer Service Representative</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <label for="department">Department:</label>
+                                        <input type="text" class="form-control" id="department" name="department" value="{{ user.department }}" placeholder="Enter your Department">
+                                    </div>
+                                </div>
+                                <div class="form-group row text-left">
+                                    <div class="col-md-6 col-12">
+                                        <label for="office">Office</label>
+                                        <select class="form-control" id="office" name="office" required>
+                                            <option value="{{ user.office }}" selected disabled hidden>{{ user.office }}</option>
+                                            <option value="kamrup">Kamrup</option>
+                                            <option value="kokrajhar">Kokrajhar</option>
+                                            <option value="hojai">Hojai</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <label for="joining_date">Joining Date:</label>
+                                        <input type="date" class="form-control" id="joining_date" name="joining_date" value="{{ user.joining_date }}">
+                                    </div>
+                                </div>
+                                <div class="form-group row text-center">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html> {% endcomment %}
+
+
+{% include 'nav.html' %}
+{% load static %}    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APDCL - Attendance System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <main class="container mt-4">
+        <div class="card card-profile" style="font-size: 16px;">
+            <div class="py-3 text-center border-bottom">
+                <h4>Update Employee Profile Details</h4>
+            </div>
+            <div class="card-body row text-left py-3">
+                <div class="col-md-12">
+                    <div class="py-3">
+                        <form method="post" enctype="multipart/form-data" action="{% url 'boss_edit' boss_edit.id %}">
+                            {% csrf_token %}
+                            <div class="mt-4">
+                                <div class="form-group row">
+                                    <div class="col-md-6 col-12">
+                                        <label for="is_boss">Are you boss? </label>
+                                        <select class="form-control" name="is_boss" required>
+                                            <option value="default" selected disabled hidden>Choose your user type</option>
+                                            <option value="True" {% if boss_edit.is_boss %}selected{% endif %}>Yes</option>
+                                            <option value="False" {% if not boss_edit.is_boss %}selected{% endif %}>No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row text-left">
+                                    <div class="col-md-6 col-12">
+                                        <label for="designation">Designation</label>
+                                        <select class="form-control" id="designation" name="designation" required>
+                                            <option value="{{ boss_edit.designation }}" selected>{{ boss_edit.designation }}</option>
+                                            <option value="director">Director</option>
+                                            <option value="chief engineer">Chief Engineer</option>
+                                            <option value="superintending engineer">Superintending Engineer</option>
+                                            <option value="executive engineer">Executive Engineer</option>
+                                            <option value="assistant executive engineer">Assistant Executive Engineer</option>
+                                            <option value="junior engineer">Junior Engineer</option>
+                                            <option value="technical supervisor">Technical Supervisor</option>
+                                            <option value="lineman & technician">Lineman & Technician</option>
+                                            <option value="administrative staff">Administrative Staff</option>
+                                            <option value="meter reader & customer service representative">Meter Reader & Customer Service Representative</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <label for="department">Department:</label>
+                                        <input type="text" class="form-control" id="department" name="department" value="{{ boss_edit.department }}" placeholder="Enter your Department">
+                                    </div>
+                                </div>
+                                <div class="form-group row text-left">
+                                    <div class="col-md-6 col-12">
+                                        <label for="office">Office</label>
+                                        <select class="form-control" id="office" name="office" required>
+                                            <option value="{{ boss_edit.office }}" selected>{{ boss_edit.office }}</option>
+                                            <option value="kamrup">Kamrup</option>
+                                            <option value="kokrajhar">Kokrajhar</option>
+                                            <option value="hojai">Hojai</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <label for="joining_date">Joining Date:</label>
+                                        <input type="date" class="form-control" id="joining_date" name="joining_date" value="{{ boss_edit.joining_date }}">
+                                    </div>
+                                </div>
+                                <div class="form-group row text-center">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

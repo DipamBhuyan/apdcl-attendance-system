@@ -1,0 +1,121 @@
+body {
+    background-color: #f1f1f1;
+}
+/*index*/
+.container-index {
+    margin-top: 5%;
+}
+
+.card-index {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.card-header {
+    background-color: #eeeeee;
+    color: rgb(0, 0, 0);
+}
+
+.btn-orange {
+    background-color: #ff8800;
+    border-color: #ff8800;
+    color: #ffffff;
+}
+
+.btn-orange:hover {
+    background-color: #ffb443;
+    border-color: #ffb443;
+    color: #ffffff;
+}
+
+/*subordinate_home*/
+.level-1-navbar {
+    background-color: #fcbd66;
+}
+
+.card-date-time {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 5%;
+    margin-bottom: 1rem;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.card-title {
+    margin-bottom: 0.5rem;
+}
+
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding: 0 1rem; 
+}
+
+.performance-card {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.table-container{
+    margin-top: 5%;
+    padding: 2rem 2rem;
+    box-shadow: 1px 6px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+@media (min-width: 350px) {
+    .btn-present, .btn-absent {
+        width: 120px;
+    }
+    .button-row {
+        padding: 0 4rem;
+    }
+}
+@media (min-width: 768px) {
+    .btn-present, .btn-absent {
+        width: 150px;
+    }
+    .button-row {
+        padding: 0 10rem;
+    }
+}
+@media (min-width: 992px) {
+    .btn-present, .btn-absent {
+        width: 170px;
+    }
+    .button-row {
+        padding: 0 3rem;
+    }
+    footer {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
+}
+
+/*subordinate_profile*/
+.card-profile {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    background-color: #cfcfcf;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: block;
+}
