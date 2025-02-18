@@ -16,7 +16,23 @@ The **APDCL Attendance Registration System** is a web-based **Attendance Managem
 - **Backend**: Django (Python)  
 - **Frontend**: HTML, CSS, JavaScript  
 - **Database**: SQLite / PostgreSQL  
-- **Deployment**: Hosted on APDCL’s internal servers  
+- **Deployment**: Hosted on APDCL’s internal servers
+
+## Website Images
+### Home Page  
+![Home page](screenshots/1.jpg)  
+
+### Attendance Request Page 
+![Attendance Request Page](screenshots/2.jpg)  
+
+### New Account Request Page
+![New Account Request Page](screenshots/3.jpg)
+
+### Dashboard Page
+![Dashboard Page](screenshots/4.jpg)
+
+### Profile Page
+![Profile Page](screenshots/5.jpg)
 
 ## How to Run  
 1. Clone the repository:  
