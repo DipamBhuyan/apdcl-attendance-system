@@ -1,5 +1,3 @@
-Here’s a modified version of your project description formatted to match the template from your GitHub repository:  
-
 ---
 
 # APDCL Attendance Registration System  
