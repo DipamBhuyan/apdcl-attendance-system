@@ -20,19 +20,19 @@ The **APDCL Attendance Registration System** is a web-based **Attendance Managem
 
 ## Website Images
 ### Home Page  
-![Home page](1.jpg)  
+![Home page](1.jpeg)  
 
 ### Attendance Request Page 
-![Attendance Request Page](2.jpg)  
+![Attendance Request Page](2.jpeg)  
 
 ### New Account Request Page
-![New Account Request Page](3.jpg)
+![New Account Request Page](3.jpeg)
 
 ### Dashboard Page
-![Dashboard Page](4.jpg)
+![Dashboard Page](4.jpeg)
 
 ### Profile Page
-![Profile Page](5.jpg)
+![Profile Page](5.jpeg)
 
 ## How to Run  
 1. Clone the repository:  
