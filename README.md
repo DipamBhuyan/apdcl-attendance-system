@@ -61,8 +61,8 @@ The **APDCL Attendance Registration System** is a web-based **Attendance Managem
 - **Advanced Reporting & Analytics** for attendance insights.  
 
 ## Contributors  
-- **Dipam Bhuyan**
-- **Dipjyoti Saikia**  
+- [**Dipam Bhuyan**](https://github.com/DipamBhuyan)  
+- [**Dipjyoti Saikia**](https://github.com/DipjyotiSaikia)  
 
 ## License  
 This project is for APDCL’s internal use and is not open-source.  
